@@ -1,0 +1,54 @@
+#!/bin/zsh
+
+# Default values
+list_length=50
+timespan=14
+
+# Parse named parameters
+for i in "$@"
+do
+case $i in
+    --list=*)
+    list_length="${i#*=}"
+    shift
+    ;;
+    --timespan=*)
+    timespan="${i#*=}"
+    shift
+    ;;
+    *)
+    # unknown option
+    ;;
+esac
+done
+
+# Get the timestamp and create the output file name
+timestamp=$(date +%Y%m%d_%H%M%S)
+outputfile=~/note-vault/computed/recent_files.md
+archivedpath=~/note-vault/computed/archived/${timestamp}_recent_files.md
+
+# Move the current file to the archive if it exists
+if [ -f "$outputfile" ]; then
+    mv $outputfile $archivedpath
+fi
+
+# Create an empty file
+echo "# This is an auto-generated file. Do not edit!" > $outputfile
+echo "" >> $outputfile
+echo "# Recently modified notes" >> $outputfile
+echo "" >> $outputfile
+
+# Find and print recent files
+find ~/note-vault/notes ~/note-vault/dailies \
+    -name '*.md' \
+    -type f \
+    -mtime -$timespan \
+    -print0 | \
+xargs -0 ls -lt | \
+head -n$list_length | \
+awk '{print $9}' | \
+while read line; do 
+    line=${line/"$HOME"/"~"}
+    echo "- [[${line}|$(basename $line)]]" >> $outputfile; 
+done
+

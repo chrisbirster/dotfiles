@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+# Prepare the files
+timestamp=$(date +%Y%m%d_%H%M%S)
+outputfile=~/note-vault/computed/plucked.md
+archivedpath=~/note-vault/computed/archived/${timestamp}_plucked.md
+
+# Archive existing plunk file if exists
+if [ -f $outputfile ]; then
+  mv $outputfile $archivedpath
+fi
+
+# Create a new plunk file
+echo # This is an auto-generated file. Do not edit! > $outputfile
+echo "" >> $outputfile
+echo "# Plucks" >> $outputfile
+echo "" >> $outputfile
+
+# Search the directory for lines containing [[plunk]] and write them to the plunk file
+rg -i -n -tmd "\[\[pluck\]\]" -g "*.md" ~/note-vault/notes ~/note-vault/dailies |
+while IFS= read -r line
+do
+  path_and_lineno=$(echo $line | awk -F':\[\[pluck\]\]' '{print $1}')
+  filename=$(echo $path_and_lineno | awk -F':' '{print $1}')
+  lineno=$(echo $path_and_lineno | awk -F':' '{print $2}')
+  pluck=$(echo $line | awk -F':- \[\].*?\[\[pluck\]\]' '{print "- [ ]" $2}')
+  echo "- [[${filename}|$(basename $filename)]] : line ${lineno}" >> $outputfile
+  echo "  $pluck" >> $outputfile
+  echo "" >> $outputfile
+done
+

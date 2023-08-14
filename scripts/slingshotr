@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+vault=$HOME/note-vault
+website=$HOME/code/personal/chriscodes.online/src/content/
+
+dirs=("dailies" "notes" "imgs")  # List of directories to sync
+
+# Sync the note-vault to the website content folder
+for dir in "${dirs[@]}"; do
+    rsync -avz --delete "$vault/$dir" $website
+done
+
+cp $vault/computed/recent_files.md  $website/recent/latest.md

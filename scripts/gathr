@@ -1,0 +1,37 @@
+#!/bin/zsh
+
+timestamp=$(date +%Y%m%d_%H%M%S)
+
+# Using $HOME instead of ~
+outputfile="$HOME/note-vault/computed/todos.md"
+archivedpath="$HOME/note-vault/computed/archived/${timestamp}_todos.md"
+
+# Create the archive directory if it does not exist
+mkdir -p "$(dirname "$archivedpath")"
+
+# Move the current file to the archive if it exists
+if [ -f "$outputfile" ]; then
+    mv $outputfile $archivedpath
+fi
+
+echo "# This is an auto-generated file. Do not edit!" > $outputfile 
+echo "" >> $outputfile
+echo "# Todos" >> $outputfile
+echo "" >> $outputfile
+
+rg -i -n -tmd "^\s*\- \[\]" -g "*.md" ~/note-vault/notes ~/note-vault/dailies |
+while IFS= read -r line
+  do
+  filename=$(echo $line | awk -F':' '{print $1}')
+  lineno=$(echo $line | awk -F':' '{print $2}')
+  task=$(echo $line | awk -F':' '{print $3}' | sed 's/- \[\]/- [ ]/')
+  
+  if [ ! -z "$filename" ]
+  then
+    base=$(basename "$filename")
+    echo "- [[${filename}|${base}]] : line ${lineno}" >> $outputfile
+    echo "  $task" >> $outputfile
+    echo "" >> $outputfile
+  fi
+done
+
