@@ -12,6 +12,8 @@ keymap("i", "jk", "<Esc>", opts)
 -- Normal --
 keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
 
 -- bufferline
 keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", opts)
