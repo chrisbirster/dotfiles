@@ -14,7 +14,10 @@ export PATH=$HOME/.local/share/go/bin:$PATH
 export GOPATH=$HOME/.local/share/go
 export PATH=$HOME/.local/share/neovim/bin:$PATH
 export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
-export CC=/opt/homebrew/opt/llvm/bin
+
+# Needed for CGO Golang
+export CC="/opt/homebrew/opt/llvm/bin/clang"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
