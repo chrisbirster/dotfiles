@@ -12,8 +12,13 @@ keymap("i", "jk", "<Esc>", opts)
 -- Normal --
 keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
-keymap("n", "<C-d>", "<C-d>zz")
-keymap("n", "<C-u>", "<C-u>zz")
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+
+-- jump back to the alternative file
+-- useful with LSP goto definition to jump back to the current project 
+-- from the help docs for the library/package (# = alt, % = current)
+keymap("n", "<leader>`", "<cmd>e #<CR>", opts)
 
 -- bufferline
 keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", opts)
