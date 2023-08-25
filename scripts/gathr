@@ -20,6 +20,7 @@ echo "# Todos" >> $outputfile
 echo "" >> $outputfile
 
 rg -i -n -tmd "^\s*\- \[\]" -g "*.md" ~/note-vault/notes ~/note-vault/dailies |
+sort -r -t'/' -k6 |
 while IFS= read -r line
   do
   filename=$(echo $line | awk -F':' '{print $1}')
