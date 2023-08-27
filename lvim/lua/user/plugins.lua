@@ -121,11 +121,11 @@ lvim.plugins = {
   -- "christianchiarulli/nvim-ts-rainbow",
   -- "karb94/neoscroll.nvim",
   {
-  "folke/trouble.nvim",
+    "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
   {
     'renerocksai/telekasten.nvim',
-    dependencies = {'nvim-telescope/telescope.nvim'}
+    dependencies = { 'nvim-telescope/telescope.nvim' }
   },
 }
