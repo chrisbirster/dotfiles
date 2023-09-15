@@ -15,6 +15,11 @@ local config = {
       mods = "SHIFT|CTRL",
       action = wezterm.action.ToggleFullScreen,
     },
+    {
+      key = "q",
+      mods = "CMD",
+      action = wezterm.action.DisableDefaultAssignment,
+    },
   },
 }
 
