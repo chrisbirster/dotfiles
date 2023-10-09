@@ -15,16 +15,12 @@ export GOPATH=$HOME/.local/share/go
 export PATH=$HOME/.local/share/neovim/bin:$PATH
 export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
 
-# Needed for CGO Golang
-export CC="/opt/homebrew/opt/llvm/bin/clang"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
-eval "$(zoxide init zsh)"
-
-eval "$(starship init zsh)"
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 

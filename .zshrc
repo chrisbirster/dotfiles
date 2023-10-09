@@ -8,7 +8,6 @@ plug "zsh-users/zsh-syntax-highlighting"
 
 plug $HOME/.config/zsh/aliases.zsh
 plug $HOME/.config/zsh/exports.zsh
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # Load and initialise completion system
 autoload -Uz compinit
